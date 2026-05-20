@@ -10,6 +10,7 @@ export default function Layout() {
                 <ul>
                     <li><Link to="/tasks">My Tasks</Link></li>
                     <li><Link to="/tasks/new">Create New Task</Link></li>
+                    <li><Link to="/">Back to Home</Link></li>
                 </ul>
             </nav>
 
