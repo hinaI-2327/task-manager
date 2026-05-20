@@ -50,13 +50,13 @@ export default function TaskList() {
               {/* 編集ボタン */}
               <td>
                 <Link to={`/tasks/${task.id}/edit`}>
-                  <button>編集</button>
+                  <button>Edit</button>
                 </Link>
               </td>
 
               {/* 削除ボタン */}
               <td>
-                <button onClick={() => handleDelete(task.id)}>削除</button>
+                <button onClick={() => handleDelete(task.id)}>Delete</button>
               </td>
             </tr>
           ))}

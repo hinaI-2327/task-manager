@@ -4,23 +4,19 @@ import Layout from "./components/Layout";
 import TaskList from "./pages/TaskList";
 import TaskCreate from "./pages/TaskCreate";
 import TaskEdit from "./pages/TaskEdit";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 大枠 */}
-        <Route path="/" element={<Layout />}>
-          {/* 一覧ページ */}
+          <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
           <Route path="tasks" element={<TaskList />} />
-
-          {/* 新規作成ページ */}
           <Route path="tasks/new" element={<TaskCreate />} />
-
-          {/* 編集ページ */}
           <Route path="tasks/:id/edit" element={<TaskEdit />} />
-        </Route>
-      </Routes>
+      </Route>
+  </Routes>
     </BrowserRouter>
   );
 }
