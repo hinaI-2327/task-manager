@@ -11,7 +11,8 @@ export default function TaskList() {
 
   return (
     <div>
-      <h1>タスク一覧</h1>
+      <h1>Hello React is working</h1>
+      <p>task list</p>
       {tasks.map(task => (
         <div key={task.id}>{task.title}</div>
       ))}
