@@ -1,3 +1,4 @@
+// タスク一覧ページ
 // 📌 src/pages/TaskList.jsx
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -24,17 +25,17 @@ export default function TaskList() {
 
   return (
     <div>
-      <h1>タスク一覧</h1>
+      <h1>My Tasks</h1>
 
       <table border="1" cellPadding="8">
         <thead>
           <tr>
-            <th>タイトル</th>
-            <th>期限</th>
-            <th>内容</th>
-            <th>作成日時</th>
-            <th>編集</th>
-            <th>削除</th>
+            <th>Title</th>
+            <th>Due Date</th>
+            <th>Content</th>
+            <th>Created At</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
 

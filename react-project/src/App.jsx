@@ -1,3 +1,4 @@
+// 部品の組み立てた完成系ファイル
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import TaskList from "./pages/TaskList";
