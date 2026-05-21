@@ -8,3 +8,4 @@ Route::get('/tasks', [TaskController::class, 'apiIndex']);
 Route::post('/tasks', [TaskController::class, 'apiStore']);
 Route::put('/tasks/{task}', [TaskController::class, 'apiUpdate']);
 Route::delete('/tasks/{task}', [TaskController::class, 'apiDestroy']);
+Route::get('/tasks/{task}', [TaskController::class, 'apiShow']);

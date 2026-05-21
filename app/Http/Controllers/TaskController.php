@@ -7,30 +7,37 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    // GET /api/tasks
+    // テーブルの中身を全選択
     public function apiIndex()
     {
         return Task::all();
     }
 
-    // POST /api/tasks
+    // 新規作成タスクを作る
     public function apiStore(Request $request)
     {
         $task = Task::create($request->all());
         return response()->json($task, 201);
     }
 
-    // PUT /api/tasks/{task}
+    // 編集して更新
     public function apiUpdate(Request $request, Task $task)
     {
         $task->update($request->all());
         return response()->json($task);
     }
 
-    // DELETE /api/tasks/{task}
+    // 削除
     public function apiDestroy(Task $task)
     {
         $task->delete();
         return response()->json(null, 204);
     }
+
+    // 保存したデータを取り出して表示
+    public function apiShow(Task $task)
+    {
+        return response()->json($task);
+    }
+
 }

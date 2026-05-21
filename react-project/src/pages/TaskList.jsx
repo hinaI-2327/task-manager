@@ -34,6 +34,7 @@ export default function TaskList() {
             <th>Due Date</th>
             <th>Content</th>
             <th>Created At</th>
+            <th>Updated At</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -46,6 +47,7 @@ export default function TaskList() {
               <td>{task.due_date}</td>
               <td>{task.content}</td>
               <td>{new Date(task.created_at).toLocaleString("ja-JP")}</td>
+              <td>{new Date(task.updated_at).toLocaleString("ja-JP")}</td>
 
               {/* 編集ボタン */}
               <td>

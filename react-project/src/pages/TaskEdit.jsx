@@ -20,7 +20,7 @@ export default function TaskEdit() {
     }, [id]);
 
     const handleUpdate = async() => {
-        await axios.put("http://localhost:8000/api/tasks/${id}",{
+        await axios.put(`http://localhost:8000/api/tasks/${id}`,{
             title,
             content,
             due_date: dueDate,
