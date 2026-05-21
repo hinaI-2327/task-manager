@@ -36,22 +36,32 @@ export default function TaskCreate(){
     return(
         <div>
             <h1>Create New Task</h1>
+            <p><i className="bi bi-exclamation-diamond-fill"></i>=required</p>
 {/* タスク作成フォーム */}
             <form onSubmit={handleSubmit} style={{maxWidth: "600px", margin: "0 auto"}}>
 {/* タイトル */}
-                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-                    <label style={{ width: "120px", fontWeight: "bold" }}>TITLE:</label><br />
+                <div style={{ marginBottom: "20px"}}>
+                    <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>
+                        <i className="bi bi-exclamation-diamond-fill"></i>TITLE</label><br />
                     <input
                         type="text"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) =>{
+                            if(e.target.value.length <= 20)setTitle(e.target.value);
+                        }}
                         required
                         style={{ flex: 1, padding: "8px" }}
                     />
+                    </div>
+                    <div style={{ marginLeft: "120px", fontSize: "12px", color: "#555" }}>
+                        <i className="bi bi-arrow-up-circle-fill"></i>　Max 20 chars　<i className="bi bi-arrow-up-circle-fill"></i>
+                    </div>
                 </div>
 {/* 期限日 */}
                 <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-                    <label style={{ width: "120px", fontWeight: "bold" }}>DUE DATE:</label>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>
+                        <i className="bi bi-exclamation-diamond-fill"></i>DUE DATE</label>
                     <input
                         type="date"
                         value={dueDate}
@@ -61,22 +71,44 @@ export default function TaskCreate(){
                     />
                 </div>
 {/* 内容 */}
-                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-                    <label style={{ width: "120px", fontWeight: "bold" }}>CONTENT:</label>
+                <div style={{ marginBottom: "20px" }}>
+                    <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>
+                        <i className="bi bi-exclamation-diamond-fill"></i>CONTENT</label>
                     <textarea
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        rows="3"
+                        onChange={(e) => {
+                            if (e.target.value.length <= 200) setContent(e.target.value);
+                        }}
+                        rows="4"
+                        required
                         style={{ flex: 1, padding: "8px" }}
                     />
                 </div>
+                <div style={{ marginLeft: "120px", fontSize: "12px", color: "#555" }}>
+                        <i className="bi bi-arrow-up-circle-fill"></i>　Max 200 chars　<i className="bi bi-arrow-up-circle-fill"></i>
+                </div>
+
+
+                </div>
 {/* 優先度 */}
                 <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-                    <label style={{ width: "120px", fontWeight: "bold" }}>PRIORITY:</label>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>
+                        <i className="bi bi-exclamation-diamond-fill"></i>PRIORITY</label>
                     <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        style={{ flex: 1, padding: "8px" }}
+                        required
+                        style={{
+                            flex: 1,
+                            padding: "8px",
+                            backgroundColor:
+                                priority === "high"
+                                ? "#d13c3c"   // 赤系
+                                : priority === "medium"
+                                ? "#6bb96b"   // 緑系
+                                : "#436caa"   // 青系
+                        }}
                     >
                         <option value="high">HIGH</option>
                         <option value="medium">MEDIUM</option>
@@ -116,7 +148,9 @@ export default function TaskCreate(){
                     <label style={{ width: "120px", fontWeight: "bold" }}>MEMO:</label>
                     <textarea
                         value={memo}
-                        onChange={(e) => setMemo(e.target.value)}
+                        onChange={(e) => {
+                            if (e.target.value.length <= 200) setMemo(e.target.value);
+                        }}
                         rows="3"
                         style={{ flex: 1, padding: "8px" }}
                     />
