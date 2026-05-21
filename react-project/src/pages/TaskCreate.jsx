@@ -37,69 +37,103 @@ export default function TaskCreate(){
         <div>
             <h1>Create New Task</h1>
 {/* タスク作成フォーム */}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{maxWidth: "600px", margin: "0 auto"}}>
 {/* タイトル */}
-                <div>
-                    <label>TITLE:</label><br />
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>TITLE:</label><br />
                     <input
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
+                        style={{ flex: 1, padding: "8px" }}
                     />
                 </div>
 {/* 期限日 */}
-                <div>
-                    <label>DUE DATE:</label>
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>DUE DATE:</label>
                     <input
                         type="date"
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
                         required
+                        style={{ flex: 1, padding: "8px" }}
                     />
                 </div>
 {/* 内容 */}
-                <div>
-                    <label>CONTENT:</label>
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>CONTENT:</label>
                     <textarea
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        rowx="4"
+                        rows="3"
+                        style={{ flex: 1, padding: "8px" }}
                     />
                 </div>
 {/* 優先度 */}
-                <select value={priority}
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>PRIORITY:</label>
+                    <select
+                        value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                >
-                    <option value="high">HIGH</option>
-                    <option value="medium">MEDIUM</option>
-                    <option value="low">LOW</option>
-                </select>
+                        style={{ flex: 1, padding: "8px" }}
+                    >
+                        <option value="high">HIGH</option>
+                        <option value="medium">MEDIUM</option>
+                        <option value="low">LOW</option>
+                    </select>
+                </div>
 {/* ステータス */}
-                <select value={status}
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>STATUS:</label>
+                    <select
+                        value={status}
                         onChange={(e) => setStatus(e.target.value)}
-                >
-                    <option value="not_started">Not Started!</option>
-                    <option value="in_progress">In Progress!!</option>
-                    <option value="completed">Completed!!!</option>
-                    <option value="on_hold">On Hold</option>
-                </select>
+                        style={{ flex: 1, padding: "8px" }}
+                    >
+                        <option value="not_started">Not Started</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="on_hold">On Hold</option>
+                    </select>
+                </div>
 {/* 分類 */}
-                <select value={category}
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>CATEGORY:</label>
+                    <select
+                        value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                >
-                    <option value="life">Life</option>
-                    <option value="study">Study</option>
-                    <option value="work">Work</option>
-                    <option value="other">Other</option>
-
-                </select>
+                        style={{ flex: 1, padding: "8px" }}
+                    >
+                        <option value="life">Life</option>
+                        <option value="study">Study</option>
+                        <option value="work">Work</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
 {/* メモ */}
-                <textarea value={memo}
-                onChange={(e) =>setMemo(e.target.value)}
-                />
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+                    <label style={{ width: "120px", fontWeight: "bold" }}>MEMO:</label>
+                    <textarea
+                        value={memo}
+                        onChange={(e) => setMemo(e.target.value)}
+                        rows="3"
+                        style={{ flex: 1, padding: "8px" }}
+                    />
+                </div>
 {/* 追加ボタン */}
-                <button type="submit">Add New Task</button>
+                <button
+                    type="submit"
+                    style={{
+                        width: "100%",
+                        padding: "12px",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                        cursor: "pointer"
+                    }}
+                >
+                    Add New Task
+                </button>
             </form>
         </div>
     );
