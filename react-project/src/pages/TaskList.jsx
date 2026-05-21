@@ -26,39 +26,30 @@ export default function TaskList() {
   return (
     <div>
       <h1>My Tasks</h1>
-
+{/* テーブルヘッド */}
       <table border="1" cellPadding="8">
         <thead>
           <tr>
             <th>Title</th>
-            <th>Due Date</th>
-            <th>Content</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Edit</th>
-            <th>Delete</th>
+              <th>Due Date</th>
+              <th>Content</th>
+              <th>Updated At</th>
+              <th>Detail</th>
           </tr>
         </thead>
-
+{/* テーブル中身 */}
         <tbody>
           {tasks.map(task => (
             <tr key={task.id}>
               <td>{task.title}</td>
               <td>{task.due_date}</td>
               <td>{task.content}</td>
-              <td>{new Date(task.created_at).toLocaleString("ja-JP")}</td>
               <td>{new Date(task.updated_at).toLocaleString("ja-JP")}</td>
-
-              {/* 編集ボタン */}
+{/* 詳細ボタン */}
               <td>
-                <Link to={`/tasks/${task.id}/edit`}>
-                  <button>Edit</button>
+                <Link to={`/tasks/${task.id}`}>
+                  <button>More Details</button>
                 </Link>
-              </td>
-
-              {/* 削除ボタン */}
-              <td>
-                <button onClick={() => handleDelete(task.id)}>Delete</button>
               </td>
             </tr>
           ))}

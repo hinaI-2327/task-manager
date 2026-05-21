@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import TaskList from "./pages/TaskList";
 import TaskCreate from "./pages/TaskCreate";
 import TaskEdit from "./pages/TaskEdit";
+import TaskShow from "./pages/TaskShow";
 
 export default function App() {
   return (
@@ -21,6 +22,10 @@ export default function App() {
 
           {/* 編集 */}
           <Route path="tasks/:id/edit" element={<TaskEdit />} />
+
+          {/* 詳細 */}
+          <Route path="/tasks/:id" element={<TaskShow />} />
+
           </Route>
         </Routes>
       </BrowserRouter>

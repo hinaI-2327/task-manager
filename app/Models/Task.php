@@ -10,5 +10,9 @@ class Task extends Model
         'title',
         'due_date',
         'content',
+        'priority',
+        'status',
+        'category',
+        'memo',
     ];
 }
