@@ -109,3 +109,17 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.task-table th,
+.task-table td {
+  border: 1px solid black;
+}
+
+.task-table td {
+  overflow: visible;
+  text-overflow: ellipsis;
+}
+
+.task-table td:last-child {
+  text-align: center;
+}
