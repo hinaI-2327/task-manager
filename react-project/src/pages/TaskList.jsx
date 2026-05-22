@@ -16,7 +16,7 @@ export default function TaskList() {
   );
   const [tasks, setTasks] = useState([]);
   const [filterDue, setFilterDue] = useState([]);
-  const [filterPriorities, setFilterPriorities] = useState([]);
+  const [filterPriorities, setFilterPriorities] = useState(null);
   const [filterStatuses, setFilterStatuses] = useState([]);
 
 
@@ -43,7 +43,13 @@ export default function TaskList() {
 
   };
 
+  const isNone=
+    filterPriorities !== "high" &&
+    filterPriorities !== "medium" &&
+    filterPriorities !== "low";
+
   // ★ カード一覧のグリッド
+
   const gridStyle = {
     display: "flex",
     flexWrap: "wrap",
@@ -60,13 +66,17 @@ export default function TaskList() {
 
   // ★ 右上の凡例（縦3枚付箋）
   const priorityLegendWrapper = {
-    position: "absolute",
-    top: "20px",
+    position: "fixed",
+    bottom: "20px",
     right: "20px",
+    zIndex: 999,
     display: "flex",
     flexDirection: "column",
-    gap: "10px",
-    zIndex: 10,
+    gap: "6px",
+    background: "white",
+    padding: "10px",
+    borderRadius: "8px",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
   };
 
   const priorityLegendItem = (color) => ({
@@ -75,10 +85,7 @@ export default function TaskList() {
     borderRadius: "6px",
     boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
     fontWeight: "bold",
-    transform: "rotate(-2deg)",
-    transition: "transform 0.15s ease",
-    cursor: "pointer",
-
+    userSelect: "none",
   });
 
   let displayedTasks = tasks;
@@ -106,10 +113,11 @@ export default function TaskList() {
       });
     });
   }
+
 // ② 優先度フィルター
-  if (filterPriorities.length > 0) {
-    displayedTasks = displayedTasks.filter((task) =>
-      filterPriorities.includes(task.priority)
+  if (filterPriorities !== null) {
+    displayedTasks = displayedTasks.filter(
+      (task) => task.priority === filterPriorities
     );
   }
 
@@ -308,7 +316,7 @@ export default function TaskList() {
       ))}
     </div>
 
-    {/* フィルター（優先度） */}
+{/* フィルター（優先度） */}
     <div style={{ marginBottom: "10px" }}>
       <strong>Priority</strong><br />
       {[
@@ -318,21 +326,15 @@ export default function TaskList() {
       ].map((p) => (
         <label key={p.key} style={{ marginRight: "12px" }}>
           <input
-            type="checkbox"
-            checked={filterPriorities.includes(p.key)}
-            onChange={() => {
-              setFilterPriorities(
-                filterPriorities.includes(p.key)
-                  ? filterPriorities.filter((x) => x !== p.key)
-                  : [...filterPriorities, p.key]
-              );
-            }}
+            type="radio"
+            name="priority"
+            checked={filterPriorities === p.key}
+            onChange={() => setFilterPriorities(p.key)}
           />
           {p.label}
         </label>
       ))}
     </div>
-
     {/* フィルター（ステータス） */}
     <div style={{ marginBottom: "10px" }}>
       <strong>Status</strong><br />
@@ -388,7 +390,7 @@ export default function TaskList() {
           <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
             {displayedTasks.length === 0 ? (
               <div style={{ padding: "20px", textAlign: "center", color: "#666" }}>
-              No tasks found
+              No Tasks Found
               </div>
             ) : (
             <table
@@ -471,90 +473,51 @@ export default function TaskList() {
         {/* カード形式 */}
         {viewMode === "card" && (
           <>
-            {/* 右上の縦3枚付箋凡例 */}
-            <div style={priorityLegendWrapper}>
-            <div style={{ fontSize: "12px", fontWeight: "bold", textAlign: "right"}}>
-              PRIORITY
-            </div>
-            <div
-              style={{
-                ...priorityLegendItem("#ffb3b3"),
-                transform: filterPriorities === "high" ? "scale(1.15)" : "scale(1)",
-                border: filterPriorities === "high" ? "2px solid #333" : "none",
-                paddingLeft: filterPriorities === "high" ? "20px" : "12px",
-                position: "relative",
-              }}
-              onClick={() => setfilterPriorities("high")}
+        <div style={priorityLegendWrapper}>
+          <div style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center" }}>
+            PRIORITY
+          </div>
+          <div
+    style={{
+      ...priorityLegendItem("#ffb3b3"),
+      opacity: isNone || filterPriorities === "high" ? 1 : 0.3,
+      textDecoration: isNone || filterPriorities === "high" ? "none" : "line-through",
+    }}
+  >
+    HIGH
+  </div>
 
-              // ★ ここがホバー処理
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.1) rotate(-2deg)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform =
-                  filterPriorities === "high" ? "scale(1.15)" : "scale(1)";
-              }}
-            >
-              {filterPriorities === "high" && (
-                <span style={{ position: "absolute", left: "-18px" }}>≫</span>
-              )}
-              HIGH
-            </div>
+  {/* MEDIUM */}
+  <div
+    style={{
+      ...priorityLegendItem("#c8f7c5"),
+      opacity: isNone || filterPriorities === "medium" ? 1 : 0.3,
+      textDecoration: isNone || filterPriorities === "medium" ? "none" : "line-through",
+    }}
+  >
+    MEDIUM
+  </div>
 
-              <div
-                style={{
-                  ...priorityLegendItem("#c8f7c5"),
-                  transform: filterPriorities === "medium" ? "scale(1.15)" : "scale(1)",
-                  border: filterPriorities === "medium" ? "2px solid #333" : "none",
-                  paddingLeft: filterPriorities === "medium" ? "20px" : "12px",
-                  position: "relative",
-              }}
-                onClick={()=> setfilterPriorities("medium")}
-                onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.1) rotate(-2deg)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform =
-                  filterPriorities === "medium" ? "scale(1.15)" : "scale(1)";
-              }}
-              >
-              {filterPriorities === "medium" && (
-                <span style={{ position: "absolute", left: "-18px" }}>≫</span>
-              )}
-              MEDIUM</div>
-
-              <div
-                style={{
-                  ...priorityLegendItem("#c7dfff"),
-                  transform: filterPriorities === "low" ? "scale(1.15)" : "scale(1)",
-                  border: filterPriorities === "low" ? "2px solid #333" : "none",
-                  paddingLeft: filterPriorities === "low" ? "20px" : "12px",
-                  position: "relative",
-                }}
-                onClick={()=> setfilterPriorities("low")}
-                onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.1) rotate(-2deg)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform =
-                  filterPriorities === "medium" ? "scale(1.15)" : "scale(1)";
-              }}
-              >
-                {filterPriorities === "low" && (
-                <span style={{ position: "absolute", left: "-18px" }}>≫</span>
-                )}
-                LOW</div>
-            </div>
-
+  {/* LOW */}
+  <div
+    style={{
+      ...priorityLegendItem("#c7dfff"),
+      opacity: isNone || filterPriorities === "low" ? 1 : 0.3,
+      textDecoration: isNone || filterPriorities === "low" ? "none" : "line-through",
+    }}
+  >
+    LOW
+  </div>
+        </div>
   {/* カード一覧 */}
   {/* ★ タスクが0件のときのメッセージ */}
             {displayedTasks.length === 0 && (
               <>
               <div style={{ fontSize: "40px",marginTop: "200px", fontWeight: "bold", color: "#555" }}>
-              No Tasks
+              No Tasks Found
               </div>
               <button
-                onClick={() => setfilterPriorities(null)}
+                onClick={() => setFilterPriorities(null)}
                 style={{
                   marginTop: "20px",
                   padding: "10px 20px",
